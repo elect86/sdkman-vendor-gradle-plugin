@@ -4,10 +4,11 @@ import org.gradle.api.logging.Logger
 
 interface ExceptionHandling {
 
-    fun withTry(logger: Logger, func: () -> Unit) =
+    fun <R>withTry(logger: Logger, func: () -> R): R? =
             try {
                 func()
             } catch (e: Exception) {
                 logger.error("Error: ${e.message}")
+                null
             }
 }
