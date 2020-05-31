@@ -19,13 +19,13 @@ class SdkmanVendorPlugin : Plugin<Project> {
     }
 
     private fun SdkmanVendorBaseTask.configureCommon(): Task =
-        configureTask {
-            apiUrl = apiUrl ?: project.extensions.getByName("sdkman.api") as String
-            candidate = candidate ?: project.extensions.getByName("sdkman.candidate") as String
-            version = version ?: project.extensions.getByName("sdkman.version") as String
-            consumerKey = consumerKey ?: project.extensions.getByName("sdkman.consumerKey") as String
-            consumerToken = consumerToken ?: project.extensions.getByName("sdkman.consumerToken") as String
-        }
+            configureTask {
+                apiUrl = apiUrl ?: project.extensions.getByName("sdkman.api") as String
+                candidate = candidate ?: project.extensions.getByName("sdkman.candidate") as String
+                version = version ?: project.extensions.getByName("sdkman.version") as String
+                consumerKey = consumerKey ?: project.extensions.getByName("sdkman.consumerKey") as String
+                consumerToken = consumerToken ?: project.extensions.getByName("sdkman.consumerToken") as String
+            }
 
     private fun SdkReleaseVersionTask.configure(): Task {
         configureCommon()
@@ -52,9 +52,19 @@ class SdkmanVendorPlugin : Plugin<Project> {
     }
 
     companion object {
-        private fun <T: SdkmanVendorBaseTask> T.configureTask(initializer: T.() -> Unit): Task {
+        private fun <T : SdkmanVendorBaseTask> T.configureTask(initializer: T.() -> Unit): Task {
             project.afterEvaluate { initializer() }
             return this
         }
     }
 }
+
+/**
+ * Retrieves the [pluginBundle][com.gradle.publish.PluginBundleExtension] extension.
+ */
+val org.gradle.api.Project.`sdkmanVendorPlugin`: SdkmanVendorPlugin
+    get() = (this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("pluginBundle") as SdkmanVendorPlugin
+
+fun org.gradle.api.Project.`sdkmanVendorPlugin`(configure: SdkmanVendorPlugin.() -> Unit): Unit =
+        (this as org.gradle.api.plugins.ExtensionAware).extensions.configure("sdkmanVendorPlugin", configure)
+
