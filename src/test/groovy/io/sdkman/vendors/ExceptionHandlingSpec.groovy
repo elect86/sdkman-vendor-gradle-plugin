@@ -8,7 +8,7 @@ import wslite.rest.RESTClientException
 
 class ExceptionHandlingSpec extends Specification {
 
-    private static class UnderTest implements ExceptionHandling {}
+    private static class UnderTest /*implements ExceptionHandling*/ {}
 
     def underTest = new UnderTest()
 
