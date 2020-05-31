@@ -1,8 +1,9 @@
 package io.sdkman.vendors.model
 
+import org.gradle.api.plugins.ExtensionContainer
 import org.hibernate.validator.constraints.URL
 
-class SdkmanExtension {
+open class SdkmanExtension {
 
     @URL
     val api = "https://vendors.sdkman.io"
@@ -24,3 +25,6 @@ class SdkmanExtension {
             "SdkmanExtension{api='$api', consumerKey='$consumerKey', consumerToken='$consumerToken', " +
                     "candidate='$candidate', version='$version', url='$url', hashtag='$hashtag'}"
 }
+
+val ExtensionContainer.sdkman: SdkmanExtension
+    get() = getByName("sdkman") as SdkmanExtension

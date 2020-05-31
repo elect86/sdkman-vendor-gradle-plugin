@@ -27,7 +27,7 @@ open class SdkMinorRelease : SdkmanVendorBaseTask() {
     }
 }
 
-class SdkMajorRelease : SdkMinorRelease() {
+open class SdkMajorRelease : SdkMinorRelease() {
 
     init {
         description = "Convenience task performs a Major Release consisting of Release, Default and Announce combined on SDKMAN!"

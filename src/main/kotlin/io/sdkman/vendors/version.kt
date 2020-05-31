@@ -1,6 +1,6 @@
 package io.sdkman.vendors
 
-class SdkAnnounceVersionTask : SdkmanVendorBaseTask() {
+open class SdkAnnounceVersionTask : SdkmanVendorBaseTask() {
 
     init {
         description = "Announce a Release on SDKMAN!"
@@ -24,7 +24,7 @@ class SdkAnnounceVersionTask : SdkmanVendorBaseTask() {
     }
 }
 
-class SdkDefaultVersionTask : SdkmanVendorBaseTask() {
+open class SdkDefaultVersionTask : SdkmanVendorBaseTask() {
 
     init {
         description = "Make an existing Candidate Version the new Default on SDKMAN!"
@@ -46,7 +46,7 @@ class SdkDefaultVersionTask : SdkmanVendorBaseTask() {
     }
 }
 
-class SdkReleaseVersionTask : SdkmanVendorBaseTask() {
+open class SdkReleaseVersionTask : SdkmanVendorBaseTask() {
 
     var downloadUrl: String? = null
 

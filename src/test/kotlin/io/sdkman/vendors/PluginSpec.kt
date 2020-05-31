@@ -3,7 +3,7 @@ package io.sdkman.vendors
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import io.kotest.matchers.types.shouldBeInstanceOf
+import io.sdkman.vendors.model.sdkman
 import org.gradle.testfixtures.ProjectBuilder
 
 class PluginSpec : StringSpec() {
@@ -18,17 +18,18 @@ class PluginSpec : StringSpec() {
 
         "should add tasks" {
 
-            shouldBeInstanceOf<SdkReleaseVersionTask> { project.tasks.getByName("sdkReleaseVersion") }
-            shouldBeInstanceOf<SdkAnnounceVersionTask> { project.tasks.getByPath("sdkAnnounceVersion") }
-            shouldBeInstanceOf<SdkDefaultVersionTask> { project.tasks.getByPath("sdkDefaultVersion") }
-            shouldBeInstanceOf<SdkMajorRelease> { project.tasks.getByPath("sdkMajorRelease") }
-            shouldBeInstanceOf<SdkMinorRelease> { project.tasks.getByPath("sdkMinorRelease") }
+            assert(project.tasks.getByName("sdkReleaseVersion") is SdkReleaseVersionTask)
+            assert(project.tasks.getByPath("sdkAnnounceVersion") is SdkAnnounceVersionTask)
+            assert(project.tasks.getByPath("sdkDefaultVersion") is SdkDefaultVersionTask)
+            assert(project.tasks.getByPath("sdkMajorRelease") is SdkMajorRelease)
+            assert(project.tasks.getByPath("sdkMinorRelease") is SdkMinorRelease)
         }
 
         "should add extension" {
 
-            project.extensions.getByName("sdkman") shouldNotBe null
-            project.extensions.getByName("sdkman.api") shouldBe "https://vendors.sdkman.io"
+            val sdkman = project.extensions.sdkman
+            sdkman shouldNotBe null
+            sdkman.api shouldBe "https://vendors.sdkman.io"
         }
     }
 }
